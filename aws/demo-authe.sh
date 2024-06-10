@@ -12,5 +12,4 @@ role_arn="${AWS_ROLE_ARN}"
 
 vault write auth/aws/role/dev-role-iam \
 auth_type=iam \
-bound_iam_principal_arn="arn:aws:iam::${AWS_ACCOUNT_ID}:user/*" \
-policies=
+bound_iam_principal_arn="arn:aws:iam::${AWS_ACCOUNT_ID}:user/*"

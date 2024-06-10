@@ -16,8 +16,8 @@ vault write aws/roles/my-role \
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": "ec2:*",
-      "Resource": "*"
+      "Action": "iam:GetUser",
+      "Resource": "arn:aws:iam::${AWS_ACCOUNT_ID}:user//${aws:username}"
     }
   ]
 }

@@ -23,4 +23,5 @@ junk/**
 **settings.json*
 python/public
 out/
+output.env
 ~

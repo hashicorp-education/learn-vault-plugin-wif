@@ -104,7 +104,7 @@ data "aws_iam_policy_document" "hashicorp_vault_secrets_policy" {
     actions = [
       "sts:AssumeRole"
     ]
-    resources = [
+    resources = [ # isn't this policy attatched to "vault-aws-secrets-engine-wif"?
       "arn:aws:iam::${local.account_id}:role/vault-aws-secrets-engine-wif"
     ]
   }

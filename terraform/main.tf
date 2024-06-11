@@ -21,7 +21,7 @@ resource "random_id" "random" {
 data "aws_caller_identity" "current" {}
 
 resource "aws_iam_openid_connect_provider" "vault" {
-  url = "${var.issuer}/v1/identity/oidc/plugins"
+  url = "https://${var.issuer}/v1/identity/oidc/plugins"
   thumbprint_list = [var.thumbprint]
   client_id_list = [
     local.audience,
@@ -41,7 +41,7 @@ resource "aws_iam_role" "config_role" {
         }
         Condition = {
           StringEquals = {
-            "${var.issuer}/v1/identity/oidc/plugins:aud" = local.audience
+            "https://${var.issuer}/v1/identity/oidc/plugins:aud" = local.audience
           }
         }
       }
@@ -139,77 +139,12 @@ data "aws_iam_policy_document" "hashicorp_vault_secrets_policy" {
 
 }
 
-
-# merge of both demos
-# works except that assumerole error
-# data "aws_iam_policy_document" "hashicorp_vault_secrets_policy" {
-#   statement {
-#     effect = "Allow"
-#     actions = [
-#       "iam:AttachUserPolicy",
-#       "iam:CreateAccessKey",
-#       "iam:CreateUser",
-#       "iam:DeleteAccessKey",
-#       "iam:DeleteUser",
-#       "iam:DeleteUserPolicy",
-#       "iam:DetachUserPolicy",
-#       "iam:GetUser",
-#       "iam:ListAccessKeys",
-#       "iam:ListAttachedUserPolicies",
-#       "iam:ListGroupsForUser",
-#       "iam:ListUserPolicies",
-#       "iam:PutUserPolicy",
-#       "iam:AddUserToGroup",
-#       "iam:RemoveUserFromGroup"
-#     ]
-#     resources = ["arn:aws:iam::${local.account_id}:user/*"]
-#   }
-
-#   statement {
-#     effect = "Allow"
-#     actions = [
-#       "ec2:DescribeInstances",
-#       "iam:GetInstanceProfile",
-#       "iam:GetUser",
-#       "iam:GetRole"
-#     ]
-#     resources = ["*"]
-#   }
-
-#   statement {
-#     effect  = "Allow"
-#     actions = [
-#       "sts:AssumeRole"
-#     ]
-#     resources = [ ## changed this from role to user
-#       "arn:aws:iam::${local.account_id}:user/*"
-#     ]
-#   }
-
-#   statement {
-#     effect  = "Allow"
-#     actions = [
-#       "iam:CreateAccessKey",
-#       "iam:DeleteAccessKey",
-#       "iam:GetAccessKeyLastUsed",
-#       "iam:GetUser",
-#       "iam:ListAccessKeys",
-#       "iam:UpdateAccessKey"
-#     ]
-#     resources = [
-#       "arn:aws:iam::${local.account_id}:user/*"
-#     ]
-#   }
-
-# }
-
 resource "local_file" "setup_environment_file" {
   filename = "output.env"
   content  = <<EOF
 export AWS_ROLE_ARN=${aws_iam_role.config_role.arn}
 export TOKEN_AUDIENCE=${local.audience}
 export AWS_ACCOUNT_ID=${data.aws_caller_identity.current.account_id}
-export ISSUER_URL=${var.issuer}
 EOF
 }
 
@@ -225,9 +160,4 @@ output "token_audience" {
 
 output "account_id" {
   value = data.aws_caller_identity.current.account_id
-}
-
-
-output "issuer_url" {
-  value = var.issuer
 }

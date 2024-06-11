@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 # Issuer config
-vault write identity/oidc/config issuer="${ISSUER_URL}"
+vault write identity/oidc/config issuer="https://${ISSUER}"
 
 # AWS secrets engine config
 vault secrets enable aws
 vault write aws/config/root \
     identity_token_audience="${TOKEN_AUDIENCE}" \
     role_arn="${AWS_ROLE_ARN}"
+
 vault write aws/roles/my-role \
     credential_type=iam_user \
     policy_document=-<<EOF
@@ -22,6 +23,11 @@ vault write aws/roles/my-role \
   ]
 }
 EOF
+
+# vault write aws/roles/my-role \
+#    credential_type=iam_user \
+#    policy_document=@policy/my-role-policy.json
+
 vault read aws/creds/my-role
 
 # OpenID config and JWKS for the plugin issuer

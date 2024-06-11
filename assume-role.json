@@ -1,0 +1,51 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::794723625284:oidc-provider/d594451d1c79.ngrok.app/v1/identity/oidc/plugins"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "https://d594451d1c79.ngrok.app/v1/identity/oidc/plugins:aud": "vault-aws-secrets-bob-test"
+                }
+            }
+        }
+    ]
+}
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::794723625284:oidc-provider/d594451d1c79.ngrok.app/v1/identity/oidc/plugins"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "https://d594451d1c79.ngrok.app/v1/identity/oidc/plugins:aud": "vault-aws-secrets-bob-test"
+                }
+            }
+        }
+    ]
+}
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::794723625284:oidc-provider/d594451d1c79.ngrok.app/v1/identity/oidc/plugins"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "https://d594451d1c79.ngrok.app/v1/identity/oidc/plugins:aud": "vault-aws-secrets-bob-test"
+                }
+            }
+        }
+    ]
+}

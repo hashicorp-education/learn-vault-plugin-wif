@@ -1,0 +1,68 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Action": [
+				"sts:AssumeRole",
+				"iam:UpdateOpenIDConnectProviderThumbprint",
+				"iam:PutRolePolicy",
+				"iam:ListRolePolicies",
+				"iam:ListInstanceProfilesForRole",
+				"iam:ListAttachedRolePolicies",
+				"iam:GetUser",
+				"iam:GetRolePolicy",
+				"iam:GetRole",
+				"iam:GetOpenIDConnectProvider",
+				"iam:GetInstanceProfile",
+				"iam:DeleteRolePolicy",
+				"iam:DeleteRole",
+				"iam:DeleteOpenIDConnectProvider",
+				"iam:CreateRole",
+				"iam:CreateOpenIDConnectProvider",
+				"ec2:DescribeInstances"
+			],
+			"Effect": "Allow",
+			"Resource": "*"
+		},
+		{
+			"Action": "sts:AssumeRole",
+			"Effect": "Allow",
+			"Resource": "arn:aws:iam::794723625284:role/*"
+		},
+		{
+			"Action": "sts:AssumeRole",
+			"Effect": "Allow",
+			"Resource": "arn:aws:iam::794723625284:user/*"
+		},
+		{
+			"Action": "sts:AssumeRole",
+			"Effect": "Allow",
+			"Resource": "arn:aws:iam::794723625284:role/vault-aws-secrets-engine-wif"
+		},
+		{
+			"Action": [
+				"sts:AssumeRole",
+				"iam:UpdateOpenIDConnectProviderThumbprint",
+				"iam:UpdateAccessKey",
+				"iam:PutRolePolicy",
+				"iam:ListRolePolicies",
+				"iam:ListInstanceProfilesForRole",
+				"iam:ListAttachedRolePolicies",
+				"iam:ListAccessKeys",
+				"iam:GetUser",
+				"iam:GetRolePolicy",
+				"iam:GetOpenIDConnectProvider",
+				"iam:GetAccessKeyLastUsed",
+				"iam:DeleteRolePolicy",
+				"iam:DeleteRole",
+				"iam:DeleteOpenIDConnectProvider",
+				"iam:DeleteAccessKey",
+				"iam:CreateRole",
+				"iam:CreateOpenIDConnectProvider",
+				"iam:CreateAccessKey"
+			],
+			"Effect": "Allow",
+			"Resource": "arn:aws:iam::794723625284:user/*"
+		}
+	]
+}

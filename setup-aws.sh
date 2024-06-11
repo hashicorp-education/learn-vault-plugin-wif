@@ -3,7 +3,7 @@
 # ISSUER set without "http://"
 # aws acceess and secret id env variables required
 export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-export TOKEN_AUDIENCE="vault-aws-secrets-bob-test"
+export TOKEN_AUDIENCE="vault-aws-secrets-test-user"
 
 echo "$AWS_ACCOUNT_ID"
 echo "$TOKEN_AUDIENCE"
@@ -17,6 +17,6 @@ aws iam put-role-policy \
     --policy-name vault-aws-secrets-engine \
     --policy-document file://policy/config-role.json
 
-aws iam create-open-id-connect-provider --url https://$ISSUER/v1/identity/oidc/plugins --client-id-list "vault-aws-secrets-user"
+aws iam create-open-id-connect-provider --url https://$ISSUER/v1/identity/oidc/plugins --client-id-list "vault-aws-secrets-test-user"
 
 exit

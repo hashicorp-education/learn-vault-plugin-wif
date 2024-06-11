@@ -8,6 +8,26 @@ export TOKEN_AUDIENCE="vault-aws-secrets-test-user"
 echo "$AWS_ACCOUNT_ID"
 echo "$TOKEN_AUDIENCE"
 
+cat <<EOF >> policy/assume-role.json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::$AWS_ACCOUNT_ID:oidc-provider/$ISSUER/v1/identity/oidc/plugins"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "$ISSUER_URL/v1/identity/oidc/plugins:aud": "vault-aws-secrets-bob-test"
+                }
+            }
+        }
+    ]
+}
+EOF
+
 export AWS_ROLE_ARN=$(aws iam create-role --role-name vault-aws-secrets-engine-wif --assume-role-policy-document file://policy/assume-role.json  | jq ".Role.Arn")
 
 echo "$AWS_ROLE_ARN"

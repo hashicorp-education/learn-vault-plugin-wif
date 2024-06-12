@@ -20,7 +20,7 @@ cat <<EOF >> policy/assume-role.json
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
                 "StringEquals": {
-                    "$ISSUER_URL/v1/identity/oidc/plugins:aud": "vault-aws-secrets-bob-test"
+                    "$ISSUER_URL/v1/identity/oidc/plugins:aud": "vault-aws-secrets-test-user"
                 }
             }
         }
@@ -37,6 +37,7 @@ aws iam put-role-policy \
     --policy-name vault-aws-secrets-engine \
     --policy-document file://policy/config-role.json
 
-aws iam create-open-id-connect-provider --url https://$ISSUER/v1/identity/oidc/plugins --client-id-list "vault-aws-secrets-test-user"
+# aws iam create-open-id-connect-provider --url https://$ISSUER/v1/identity/oidc/plugins --client-id-list "vault-aws-secrets-test-user"
+aws iam create-open-id-connect-provider --url https://$ISSUER/v1/identity/oidc/plugins --thumbprint-list $THUMBPRINT --client-id-list "vault-aws-secrets-test-user"
 
 exit
